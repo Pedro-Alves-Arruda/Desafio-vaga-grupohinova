@@ -1,0 +1,267 @@
+2025-03-25 13:36:20.635314-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS USUARIOS (\000d\000a        id INT NOT NULL AUTO_INCREMENT [*]PRIMARY_KEY,\000d\000a        name VARCHAR(255) NOT NULL,\000d\000a        email VARCHAR(50) NOT NULL,\000d\000a        phone VARCHAR (20) NOT NULL,\000d\000a        cpf VARCHAR (20) NOT NULL,\000d\000a        zip_code VARCHAR\000d\000a        address VARCHAR\000d\000a        number VARCHAR\000d\000a        complement VARCHAR\000d\000a        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\000d\000a        status boolean\000d\000a)"; expected "(, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS USUARIOS (
+        id INT NOT NULL AUTO_INCREMENT PRIMARY_KEY,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(50) NOT NULL,
+        phone VARCHAR (20) NOT NULL,
+        cpf VARCHAR (20) NOT NULL,
+        zip_code VARCHAR
+        address VARCHAR
+        number VARCHAR
+        complement VARCHAR
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        status boolean
+) [42001-232]
+2025-03-25 13:36:20.641347-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS VEICULOS(\000d\000a    id INT NOT NULL AUTO_INCREMENT [*]PRIMARY_KEY,\000d\000a    plate NOT NULL UNIQUE,\000d\000a    advertised_price NOT NULL,\000d\000a    brand_id INTEGER,\000d\000a    model_id INTEGER,\000d\000a    fipe_price INTEGER,\000d\000a    year NOT NULL,\000d\000a    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\000d\000a    id_usuario INT NOT NULL FOREIGN KEY\000d\000a)"; expected "(, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS VEICULOS(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY_KEY,
+    plate NOT NULL UNIQUE,
+    advertised_price NOT NULL,
+    brand_id INTEGER,
+    model_id INTEGER,
+    fipe_price INTEGER,
+    year NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_usuario INT NOT NULL FOREIGN KEY
+) [42001-232]
+2025-03-25 13:38:58.047247-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Unknown data type: "NOT"; SQL statement:
+CREATE TABLE IF NOT EXISTS VEICULOS(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    plate NOT NULL UNIQUE,
+    advertised_price NOT NULL,
+    brand_id INTEGER,
+    model_id INTEGER,
+    fipe_price INTEGER,
+    year NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_usuario INT NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES USUARIOS(id)
+) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp.query(WebApp.java:1118)
+	at org.h2.server.web.WebApp.process(WebApp.java:244)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+2025-03-25 13:39:25.760844-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Unknown data type: "NOT"; SQL statement:
+CREATE TABLE IF NOT EXISTS VEICULOS(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    plate NOT NULL UNIQUE,
+    advertised_price NOT NULL,
+    brand_id INTEGER,
+    model_id INTEGER,
+    fipe_price INTEGER,
+    year NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_usuario INT NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES USUARIOS(id)
+) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp.query(WebApp.java:1118)
+	at org.h2.server.web.WebApp.process(WebApp.java:244)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+2025-03-25 13:41:05.474098-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS VEICULOS(\000d\000a    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,\000d\000a    plate VARCHAR(10) NOT NULL UNIQUE,\000d\000a    advertised_price INT NOT NULL,\000d\000a    brand_id INTEGER,\000d\000a    model_id INTEGER,\000d\000a    fipe_price INTEGER,\000d\000a    [*]year INT NOT NULL,\000d\000a    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\000d\000a    id_usuario INT NOT NULL,\000d\000a    FOREIGN KEY (id_usuario) REFERENCES USUARIOS(id)\000d\000a)"; expected "identifier"; SQL statement:
+CREATE TABLE IF NOT EXISTS VEICULOS(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    plate VARCHAR(10) NOT NULL UNIQUE,
+    advertised_price INT NOT NULL,
+    brand_id INTEGER,
+    model_id INTEGER,
+    fipe_price INTEGER,
+    year INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_usuario INT NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES USUARIOS(id)
+) [42001-232]
+2025-03-25 13:42:07.555325-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS VEICULOS(\000d\000a    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,\000d\000a    plate VARCHAR(10) NOT NULL UNIQUE,\000d\000a    advertised_price INT NOT NULL,\000d\000a    brand_id INT,\000d\000a    model_id INT,\000d\000a    fipe_price INT,\000d\000a    [*]year INT NOT NULL,\000d\000a    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\000d\000a    id_usuario INT NOT NULL,\000d\000a    FOREIGN KEY (id_usuario) REFERENCES USUARIOS(id)\000d\000a)"; expected "identifier"; SQL statement:
+CREATE TABLE IF NOT EXISTS VEICULOS(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    plate VARCHAR(10) NOT NULL UNIQUE,
+    advertised_price INT NOT NULL,
+    brand_id INT,
+    model_id INT,
+    fipe_price INT,
+    year INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_usuario INT NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES USUARIOS(id)
+) [42001-232]
+2025-03-25 13:43:27.305911-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS VEICULOS (\000d\000a    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,\000d\000a    plate VARCHAR(10) NOT NULL UNIQUE,\000d\000a    advertised_price INT NOT NULL,\000d\000a    brand_id INT,\000d\000a    model_id INT,\000d\000a    fipe_price INT,\000d\000a    [*]year INT NOT NULL,\000d\000a    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\000d\000a    id_usuario INT NOT NULL,\000d\000a    FOREIGN KEY (id_usuario) REFERENCES USUARIOS(id)\000d\000a)"; expected "identifier"; SQL statement:
+CREATE TABLE IF NOT EXISTS VEICULOS (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    plate VARCHAR(10) NOT NULL UNIQUE,
+    advertised_price INT NOT NULL,
+    brand_id INT,
+    model_id INT,
+    fipe_price INT,
+    year INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_usuario INT NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES USUARIOS(id)
+) [42001-232]
+2025-03-25 13:44:59.914257-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS VEICULOS (\000d\000a    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,\000d\000a    plate VARCHAR(10) NOT NULL UNIQUE,\000d\000a    advertised_price INT NOT NULL,\000d\000a    brand_id INT,\000d\000a    model_id INT,\000d\000a    fipe_price INT,\000d\000a    [*]year INT NOT NULL,\000d\000a    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\000d\000a    id_usuario INT NOT NULL,\000d\000a    FOREIGN KEY (id_usuario) REFERENCES USUARIOS(id)\000d\000a)"; expected "identifier"; SQL statement:
+CREATE TABLE IF NOT EXISTS VEICULOS (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    plate VARCHAR(10) NOT NULL UNIQUE,
+    advertised_price INT NOT NULL,
+    brand_id INT,
+    model_id INT,
+    fipe_price INT,
+    year INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_usuario INT NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES USUARIOS(id)
+) [42001-232]
+2025-03-25 13:45:24.891711-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS VEICULOS (\000d\000a    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,\000d\000a    plate VARCHAR(10) UNIQUE NOT NULL,\000d\000a    advertised_price INT NOT NULL,\000d\000a    brand_id INT,\000d\000a    model_id INT,\000d\000a    fipe_price INT,\000d\000a    [*]year INT NOT NULL,\000d\000a    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\000d\000a    id_usuario INT NOT NULL,\000d\000a    FOREIGN KEY (id_usuario) REFERENCES USUARIOS(id)\000d\000a)"; expected "identifier"; SQL statement:
+CREATE TABLE IF NOT EXISTS VEICULOS (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    plate VARCHAR(10) UNIQUE NOT NULL,
+    advertised_price INT NOT NULL,
+    brand_id INT,
+    model_id INT,
+    fipe_price INT,
+    year INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_usuario INT NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES USUARIOS(id)
+) [42001-232]
+2025-03-25 13:45:47.435695-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS VEICULOS (\000d\000a    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,\000d\000a    plate VARCHAR(10) UNIQUE NOT NULL,\000d\000a    advertised_price INT NOT NULL,\000d\000a    brand_id INT,\000d\000a    model_id INT,\000d\000a    fipe_price INT,\000d\000a    [*]year INT NOT NULL,\000d\000a    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\000d\000a    id_usuario INT NOT NULL,\000d\000a    FOREIGN KEY (id_usuario) REFERENCES USUARIOS(id)\000d\000a)"; expected "identifier"; SQL statement:
+CREATE TABLE IF NOT EXISTS VEICULOS (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    plate VARCHAR(10) UNIQUE NOT NULL,
+    advertised_price INT NOT NULL,
+    brand_id INT,
+    model_id INT,
+    fipe_price INT,
+    year INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_usuario INT NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES USUARIOS(id)
+) [42001-232]
+2025-03-25 14:12:24.530317-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM USUARIOS VEICULOS [*]USUARIOS"; SQL statement:
+SELECT * FROM USUARIOS VEICULOS USUARIOS [42000-232]
