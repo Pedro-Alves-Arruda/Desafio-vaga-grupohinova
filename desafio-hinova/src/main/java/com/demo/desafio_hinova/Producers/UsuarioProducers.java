@@ -3,6 +3,7 @@ package com.demo.desafio_hinova.Producers;
 import com.demo.desafio_hinova.Model.Usuarios;
 import com.demo.desafio_hinova.Services.UsuarioServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -13,47 +14,34 @@ import java.util.Map;
 public class UsuarioProducers {
 
 
-    private final KafkaTemplate<String, Map<String, Usuarios>> usuariosKafkaTemplate;
 
-    public UsuarioProducers(KafkaTemplate<String, Map<String, Usuarios>> usuariosKafkaTemplate) {
-        this.usuariosKafkaTemplate = usuariosKafkaTemplate;
+    private final KafkaTemplate<String, Usuarios> usuariosSalvarKafkaTemplate;
+
+    public UsuarioProducers(KafkaTemplate<String, Usuarios> usuariosSalvarKafkaTemplate) {
+
+        this.usuariosSalvarKafkaTemplate = usuariosSalvarKafkaTemplate;
     }
 
     @SuppressWarnings("null")
     public void enviarMensagemPegarUsuarios(){
-        usuariosKafkaTemplate.send("pegar-usuarios", new HashMap<>());
+        //usuariosSalvarKafkaTemplate.send("pegar-usuarios", new HashMap<>());
     }
 
-    @SuppressWarnings("null")
     public void enviarMensagemSalvarUsuarios(Usuarios usuarios){
-        Map<String, Usuarios> message = new HashMap<>();
-
-        message.put("usuario", usuarios);
-
-        usuariosKafkaTemplate.send("salvar-usuarios", message);
+        usuariosSalvarKafkaTemplate.send("salvar-usuarios", usuarios);
     }
 
     @SuppressWarnings("null")
-    public void enviarMensagemAtualizarUsuarios(Integer id, Usuarios usuarios){
-        Map<String, Usuarios> message = new HashMap<>();
-
-        Usuarios usuarioAntigo = new Usuarios();
-        usuarioAntigo.setId(id);
-
-        message.put("id", usuarioAntigo);
-        message.put("usuario", usuarios);
-        usuariosKafkaTemplate.send("atualizar-usuarios", message);
+    public void enviarMensagemAtualizarUsuarios(Long id, Usuarios usuarios){
+        usuarios.setId(id);
+        usuariosSalvarKafkaTemplate.send("atualizar-usuarios", usuarios);
     }
 
     @SuppressWarnings("null")
-    public void enviarMensagemDeletarUsuarios(Integer id){
-        Map<String, Usuarios> message = new HashMap<>();
-
-        Usuarios usuarioAntigo = new Usuarios();
-        usuarioAntigo.setId(id);
-
-        message.put("id", usuarioAntigo);
-        usuariosKafkaTemplate.send("deletar-usuarios", message);
+    public void enviarMensagemDeletarUsuarios(Long id){
+        Usuarios usuario = new Usuarios();
+        usuario.setId(id);
+        usuariosSalvarKafkaTemplate.send("deletar-usuarios", usuario);
     }
 
 }

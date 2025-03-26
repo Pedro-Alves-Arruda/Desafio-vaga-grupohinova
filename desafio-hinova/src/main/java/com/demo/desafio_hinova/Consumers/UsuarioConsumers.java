@@ -16,23 +16,29 @@ public class UsuarioConsumers {
     @Autowired
     private UsuarioServices services;
 
-    @KafkaListener(topicPartitions = @TopicPartition(topic = "pegar-usuarios", partitions = {"1"}), containerFactory = "usariosKafkaListenerContainerFactory")
+    @KafkaListener(topics = "pegar-usuarios", groupId = "desafio-hinova")
     public List<Usuarios> pegarListener(){
         return services.listar();
     }
 
-    @KafkaListener(topicPartitions = @TopicPartition(topic = "salvar-usuarios", partitions = {"1"}), containerFactory = "usariosKafkaListenerContainerFactory")
-    public Usuarios salvarListener(Map<String, Usuarios> usuariosMap){
-        return services.salvar(usuariosMap.get("usuario"));
+    @KafkaListener(topics = "salvar-usuarios", groupId = "desafio-hinova")
+    public Usuarios salvarListener(Usuarios usuario){
+        try{
+            System.out.println("Salvando usuario\n" + usuario.getName());
+            return services.salvar(usuario);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new Usuarios();
+        }
     }
 
-    @KafkaListener(topicPartitions = @TopicPartition(topic = "deletar-usuarios", partitions = {"1"}), containerFactory = "usariosKafkaListenerContainerFactory")
+    @KafkaListener(topics = "deletar-usuarios", groupId = "desafio-hinova")
     public void deletarListener(Map<String, Usuarios> usuariosMap){
         services.deletar(usuariosMap.get("usuario").getId());
     }
 
-    @KafkaListener(topicPartitions = @TopicPartition(topic = "atualizar-usuarios", partitions = {"1"}), containerFactory = "usariosKafkaListenerContainerFactory")
-    public Usuarios pegarListener(Map<String, Usuarios> usuariosMap){
+    @KafkaListener(topics = "atualizar-usuarios", groupId = "desafio-hinova")
+    public Usuarios atualizarListener(Map<String, Usuarios> usuariosMap){
         return services.atualizar(usuariosMap.get("usuario").getId(), usuariosMap.get("usuario"));
     }
 }

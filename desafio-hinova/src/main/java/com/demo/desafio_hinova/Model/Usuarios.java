@@ -1,32 +1,38 @@
 package com.demo.desafio_hinova.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
 
+import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "Usuarios")
+@Table(name = "USUARIOS")
 public class Usuarios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String name;
     private String phone;
     private String email;
     private String cpf;
-    private String zip_code;
+    private String zipCode;
     private String address;
     private String number;
-    private String complemet;
+    private String complement;
     private Boolean status;
+    @CreatedDate
+    private LocalDateTime createdAt;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -62,12 +68,12 @@ public class Usuarios {
         this.cpf = cpf;
     }
 
-    public String getZip_code() {
-        return zip_code;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public void setZip_code(String zip_code) {
-        this.zip_code = zip_code;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public String getAddress() {
@@ -86,12 +92,12 @@ public class Usuarios {
         this.number = number;
     }
 
-    public String getComplemet() {
-        return complemet;
+    public String getComplement() {
+        return complement;
     }
 
-    public void setComplemet(String complemet) {
-        this.complemet = complemet;
+    public void setComplement(String complement) {
+        this.complement = complement;
     }
 
     public Boolean getStatus() {
