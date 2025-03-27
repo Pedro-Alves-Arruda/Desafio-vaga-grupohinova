@@ -16,11 +16,12 @@ public class Veiculos {
 
 
     private String plate;
-    private String advertisedPrice;
-    private String brandId;
-    private String modelId;
+    private Integer advertisedPrice;
+    private Integer brandId;
+    private Integer modelId;
+    private String fipePrice;
     private String ano;
-    private Integer IdUsuario;
+    private Integer idUsuario;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -42,29 +43,6 @@ public class Veiculos {
         this.plate = plate;
     }
 
-    public String getAdvertisedPrice() {
-        return advertisedPrice;
-    }
-
-    public void setAdvertisedPrice(String advertisedPrice) {
-        this.advertisedPrice = advertisedPrice;
-    }
-
-    public String getBrandId() {
-        return brandId;
-    }
-
-    public void setBrandId(String brandId) {
-        this.brandId = brandId;
-    }
-
-    public String getModelId() {
-        return modelId;
-    }
-
-    public void setModelId(String modelId) {
-        this.modelId = modelId;
-    }
 
     public String getAno() {
         return ano;
@@ -74,11 +52,43 @@ public class Veiculos {
         this.ano = ano;
     }
 
+    public Integer getAdvertisedPrice() {
+        return advertisedPrice;
+    }
+
+    public void setAdvertisedPrice(Integer advertisedPrice) {
+        this.advertisedPrice = advertisedPrice;
+    }
+
+    public Integer getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(Integer brandId) {
+        this.brandId = brandId;
+    }
+
+    public Integer getModelId() {
+        return modelId;
+    }
+
+    public void setModelId(Integer modelId) {
+        this.modelId = modelId;
+    }
+
+    public String getFipePrice() {
+        return fipePrice;
+    }
+
+    public void setFipePrice(String fipePrice) {
+        this.fipePrice = fipePrice;
+    }
+
     public Integer getIdUsuario() {
-        return IdUsuario;
+        return idUsuario;
     }
 
     public void setIdUsuario(Integer idUsuario) {
-        IdUsuario = idUsuario;
+        this.idUsuario = idUsuario;
     }
 }

@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS VEICULOS (
     advertised_price INT NOT NULL,
     brand_id INT,
     model_id INT,
-    fipe_price INT,
-    ano INT NOT NULL,
+    fipe_price VARCHAR,
+    ano varchar(20) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_usuario INT NOT NULL,
     FOREIGN KEY (id_usuario) REFERENCES USUARIOS(id)
