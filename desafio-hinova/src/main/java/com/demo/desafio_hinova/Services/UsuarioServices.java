@@ -3,6 +3,8 @@ package com.demo.desafio_hinova.Services;
 import com.demo.desafio_hinova.Model.Usuarios;
 import com.demo.desafio_hinova.Repository.UsuarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ import java.util.regex.Pattern;
 @Service
 public class UsuarioServices{
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(com.demo.desafio_hinova.Services.UsuarioServices.class);
+
     @Autowired
     private UsuarioRepository repository;
 
@@ -25,7 +29,7 @@ public class UsuarioServices{
         return repository.findAll();
     }
 
-    public Usuarios salvar(Usuarios usuario){
+    public void salvar(Usuarios usuario){
         // validações
         var validado = validar(usuario);
 
@@ -33,24 +37,27 @@ public class UsuarioServices{
         if(validado)
             return repository.save(usuario);
 
-        //caso não retorna usuario vazio
-        return new Usuarios();
+        //caso não ele lança um log de erro
+        LOGGER.info("Erro ao salvar usuario, usuario não é valido");
     }
 
     public void deletar(Long id){
-         repository.deleteById(id);
+        repository.deleteById(id);
     }
 
-    public Usuarios atualizar(Long id, Usuarios usuarioNovo){
+    public void atualizar(Long id, Usuarios usuarioNovo){
+        //validações
         var validado = validar(usuarioNovo);
 
+        //casoo validado ele atualiza
         if(validado) {
             Optional<Usuarios> usuarioAntigo = repository.findById(id);
-            usuarioAntigo.map(usuarios -> usuarios = usuarioNovo);
-            return repository.save(usuarioAntigo.get());
+            usuarioAntigo = usuarioAntigo.map(usuarios -> usuarios = usuarioNovo);
+            repository.save(usuarioAntigo.get());
 
         }else {
-            return new Usuarios();
+            //caso não ele lança um log de erro
+            LOGGER.info("Erro ao atualizar usuario, usuario não é valido");
         }
     }
 
@@ -58,7 +65,7 @@ public class UsuarioServices{
 
         if(usuario.getCpf().equals(null) || usuario.getEmail().equals(null) || usuario.getName().equals(null) || usuario.getPhone().equals(null))
             return false;
-        else if(validarCPF(usuario.getCpf()) && validarTelefone(usuario.getNumber()) && validarEmail(usuario.getEmail()))
+        else if(validarCPF(usuario.getCpf()))
             return true;
         return false;
     }
@@ -115,7 +122,7 @@ public class UsuarioServices{
     }
 
     public static boolean validarTelefone(String telefone) {
-        Pattern pattern = Pattern.compile("^\\(\\d{2}\\) \\d{5}-\\d{4}$");
+        Pattern pattern = Pattern.compile("^\\([1-9]{2}\\) [9]{0,1}[6-9]{1}[0-9]{3}\\-[0-9]{4}$");
         Matcher matcher = pattern.matcher(telefone);
         return matcher.matches();
     }

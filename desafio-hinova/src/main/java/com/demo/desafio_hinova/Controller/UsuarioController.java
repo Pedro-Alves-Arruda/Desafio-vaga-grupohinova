@@ -39,7 +39,7 @@ public class UsuarioController {
         producers.enviarMensagemDeletarUsuarios(id);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public HttpStatus atualizar(@PathVariable Long id, @RequestBody Usuarios usuario){
         producers.enviarMensagemAtualizarUsuarios(id, usuario);
         return HttpStatus.OK;

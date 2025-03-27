@@ -22,7 +22,7 @@ public class UsuarioProducers {
         this.usuariosSalvarKafkaTemplate = usuariosSalvarKafkaTemplate;
     }
 
-    @SuppressWarnings("null")
+
     public void enviarMensagemPegarUsuarios(){
         //usuariosSalvarKafkaTemplate.send("pegar-usuarios", new HashMap<>());
     }
@@ -31,13 +31,11 @@ public class UsuarioProducers {
         usuariosSalvarKafkaTemplate.send("salvar-usuarios", usuarios);
     }
 
-    @SuppressWarnings("null")
     public void enviarMensagemAtualizarUsuarios(Long id, Usuarios usuarios){
         usuarios.setId(id);
         usuariosSalvarKafkaTemplate.send("atualizar-usuarios", usuarios);
     }
 
-    @SuppressWarnings("null")
     public void enviarMensagemDeletarUsuarios(Long id){
         Usuarios usuario = new Usuarios();
         usuario.setId(id);
