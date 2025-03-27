@@ -35,7 +35,7 @@ public class UsuarioServices{
 
         //caso validado salva e retorna
         if(validado)
-            return repository.save(usuario);
+            repository.save(usuario);
 
         //caso não ele lança um log de erro
         LOGGER.info("Erro ao salvar usuario, usuario não é valido");

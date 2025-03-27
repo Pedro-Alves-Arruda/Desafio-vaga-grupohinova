@@ -15,31 +15,31 @@ public class UsuarioProducers {
 
 
 
-    private final KafkaTemplate<String, Usuarios> usuariosSalvarKafkaTemplate;
+    private final KafkaTemplate<String, Usuarios> usuariosKafkaTemplate;
 
-    public UsuarioProducers(KafkaTemplate<String, Usuarios> usuariosSalvarKafkaTemplate) {
+    public UsuarioProducers(KafkaTemplate<String, Usuarios> usuariosKafkaTemplate) {
 
-        this.usuariosSalvarKafkaTemplate = usuariosSalvarKafkaTemplate;
+        this.usuariosKafkaTemplate = usuariosKafkaTemplate;
     }
 
 
     public void enviarMensagemPegarUsuarios(){
-        //usuariosSalvarKafkaTemplate.send("pegar-usuarios", new HashMap<>());
+        //usuariosKafkaTemplate.send("pegar-usuarios", new HashMap<>());
     }
 
     public void enviarMensagemSalvarUsuarios(Usuarios usuarios){
-        usuariosSalvarKafkaTemplate.send("salvar-usuarios", usuarios);
+        usuariosKafkaTemplate.send("salvar-usuarios", usuarios);
     }
 
     public void enviarMensagemAtualizarUsuarios(Long id, Usuarios usuarios){
         usuarios.setId(id);
-        usuariosSalvarKafkaTemplate.send("atualizar-usuarios", usuarios);
+        usuariosKafkaTemplate.send("atualizar-usuarios", usuarios);
     }
 
     public void enviarMensagemDeletarUsuarios(Long id){
         Usuarios usuario = new Usuarios();
         usuario.setId(id);
-        usuariosSalvarKafkaTemplate.send("deletar-usuarios", usuario);
+        usuariosKafkaTemplate.send("deletar-usuarios", usuario);
     }
 
 }

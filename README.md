@@ -62,3 +62,27 @@ PUT - localhost:8080/usuarios/{id}
                 "complemet": "Apartamento 45",
                 "status": true
             }
+
+Rotas controller Veiculos
+
+GET - localhost:8080/veiculos
+    Retorna um List<veiculos>
+
+POST - localhost:8080/veiculos
+    Parametros: Um Json de veiculos ex:
+
+    
+
+    name, phone, email, cpf são obrigatorios;
+    formato do cpd deve ser apenas numeros.
+
+DELETE - localhost:8080/veiculos/{id}
+    
+    Parametros: id do usuario a ser deletado
+
+PUT - localhost:8080/veiculos/{id}
+
+    parametros: 
+        id do usuario a ser atualizado
+        Json com os novos valores, ex:
+            

@@ -26,13 +26,13 @@ public class UsuarioConsumers {
     }
 
     @KafkaListener(topics = "salvar-usuarios", groupId = "desafio-hinova")
-    public Usuarios salvarListener(Usuarios usuario){
+    public void salvarListener(Usuarios usuario){
         try{
             LOGGER.info("Salvando usuario\n" + usuario.getName());
-            return services.salvar(usuario);
+            services.salvar(usuario);
         } catch (Exception e) {
             LOGGER.info(e.getMessage());
-            return new Usuarios();
+
         }
     }
 
@@ -48,13 +48,12 @@ public class UsuarioConsumers {
     }
 
     @KafkaListener(topics = "atualizar-usuarios", groupId = "desafio-hinova")
-    public Usuarios atualizarListener(Usuarios usuarios){
+    public void atualizarListener(Usuarios usuarios){
         try{
             LOGGER.info("Atualizando usuario");
-            return services.atualizar(usuarios.getId(), usuarios);
+            services.atualizar(usuarios.getId(), usuarios);
         } catch (Exception e) {
             LOGGER.info("Erro ao atualizar usuario:" + e.getMessage());
-            throw new RuntimeException(e);
         }
     }
 }

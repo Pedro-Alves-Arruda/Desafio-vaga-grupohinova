@@ -24,7 +24,6 @@ public class UsuarioController {
     @GetMapping
     public List<Usuarios> Listar(){
         List<Usuarios> usuarios = services.listar();
-        //producers.enviarMensagemPegarUsuarios();
         return usuarios;
     }
 
