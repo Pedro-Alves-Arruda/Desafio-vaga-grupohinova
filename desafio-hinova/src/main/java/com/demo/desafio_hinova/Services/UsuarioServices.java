@@ -30,6 +30,10 @@ public class UsuarioServices{
         return repository.findAll();
     }
 
+    public List<Usuarios> listarUsuariosDataEspecifica(String dataInicial, String dataFinal){
+        return repository.listarUsuariosDataEspecifica(dataInicial, dataFinal);
+    }
+
     public void salvar(Usuarios usuario){
         // validações
         var validado = validar(usuario);

@@ -27,6 +27,13 @@ public class UsuarioController {
         return usuarios;
     }
 
+    @GetMapping("/{dataInicial}/{dataFinal}")
+    public List<Usuarios> listarUsuariosDataEspecifica(@PathVariable String dataInicial, @PathVariable String dataFinal){
+        List<Usuarios> usuarios = services.listarUsuariosDataEspecifica(dataInicial, dataFinal);
+        return usuarios;
+    }
+
+
     @PostMapping
     public HttpStatus salvar(@RequestBody Usuarios usuario){
         producers.enviarMensagemSalvarUsuarios(usuario);
