@@ -26,7 +26,7 @@ public class VeiculosProducers {
     public void enviarMensagemDeletarVeiculo(Long id){
         Veiculos veiculos = new Veiculos();
         veiculos.setId(id);
-        veiculosKafkaTemplate.send("deletar-veiculoss", veiculos);
+        veiculosKafkaTemplate.send("deletar-veiculos", veiculos);
     }
 
 }

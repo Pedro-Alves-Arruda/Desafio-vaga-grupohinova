@@ -1,12 +1,19 @@
 package com.demo.desafio_hinova.Services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.stereotype.Service;
 import com.demo.desafio_hinova.Model.Veiculos;
+import com.demo.desafio_hinova.Model.FipeVeiculo;
 import com.demo.desafio_hinova.Repository.VeiculosRepository;
+import org.springframework.web.client.RestClient;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,20 +28,25 @@ public class VeiculosServices {
     @Autowired
     private ObjectMapper mapper;
 
+
     public List<Veiculos> listar(){
         return repository.findAll();
     }
 
-    public void salvar(Veiculos veiculo){
+    public Veiculos salvar(Veiculos veiculo){
         //validações
-        var valido = true;
+        FipeVeiculo fipeVeiculo = valida(veiculo);
 
         //caso valido ele salva
-        if(valido)
-            repository.save(veiculo);
+        if(fipeVeiculo != null) {
+            veiculo.setCreatedAt(LocalDateTime.now());
+            veiculo.setFipePrice(fipeVeiculo.getValor());
+            return repository.save(veiculo);
+        }
 
         //caso não ele lança um log de erro
-        LOGGER.info("Erro ao salvar usuario, usuario não é valido");
+        LOGGER.info("Erro ao salvar veiculo, veiculo não é valido");
+        return new Veiculos();
     }
 
     public void deletar(Long id){
@@ -43,10 +55,11 @@ public class VeiculosServices {
 
     public void atualizar(Long id, Veiculos veiculoNovo){
         //validações
-        var validado = true;
+        FipeVeiculo fipeVeiculo = valida(veiculoNovo);
 
         //caso validado ele atualiza
-        if(validado) {
+        if(fipeVeiculo != null) {
+            veiculoNovo.setFipePrice(fipeVeiculo.getValor());
             Optional<Veiculos> veiculoAntigo = repository.findById(id);
             veiculoAntigo = veiculoAntigo.map(veiculos -> veiculos = veiculoNovo);
             repository.save(veiculoAntigo.get());
@@ -55,5 +68,27 @@ public class VeiculosServices {
             //caso não ele lança um log de erro
             LOGGER.info("Erro ao atualizar veiculo, veiculo não é valido");
         }
+    }
+
+    private FipeVeiculo valida(Veiculos veiculo) {
+
+        try{
+            LOGGER.info("Buscando veiculo em: https://parallelum.com.br/fipe/api/v1/carros/marcas/"+veiculo.getBrandId()+"/modelos/"+veiculo.getModelId()+"/anos/"+veiculo.getAno());
+            var restClient = RestClient.builder()
+                    .baseUrl("https://parallelum.com.br/fipe/api/v1/carros/marcas/"+veiculo.getBrandId()+"/modelos/"+veiculo.getModelId()+"/anos/"+veiculo.getAno())
+                    .build()
+                    .get()
+                    .retrieve()
+                    .toEntity(String.class);
+
+            FipeVeiculo fipeVeiculo = mapper.readValue(restClient.getBody(), FipeVeiculo.class);
+            if(fipeVeiculo != null)
+                return fipeVeiculo;
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+       return new FipeVeiculo();
     }
 }

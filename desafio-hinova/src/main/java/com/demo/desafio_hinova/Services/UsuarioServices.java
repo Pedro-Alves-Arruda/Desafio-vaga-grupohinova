@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Optional;
@@ -34,9 +35,10 @@ public class UsuarioServices{
         var validado = validar(usuario);
 
         //caso validado salva e retorna
-        if(validado)
+        if(validado) {
+            usuario.setCreatedAt(LocalDateTime.now());
             repository.save(usuario);
-
+        }
         //caso não ele lança um log de erro
         LOGGER.info("Erro ao salvar usuario, usuario não é valido");
     }
@@ -65,7 +67,7 @@ public class UsuarioServices{
 
         if(usuario.getCpf().equals(null) || usuario.getEmail().equals(null) || usuario.getName().equals(null) || usuario.getPhone().equals(null))
             return false;
-        else if(validarCPF(usuario.getCpf()))
+        else if(validarEmail(usuario.getEmail()) && validarTelefone(usuario.getPhone()) && validarCPF(usuario.getCpf()))
             return true;
         return false;
     }
@@ -128,7 +130,11 @@ public class UsuarioServices{
     }
 
     public static boolean validarEmail(String email) {
-        Pattern pattern = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+         var EMAIL_PATTERN =
+                "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }

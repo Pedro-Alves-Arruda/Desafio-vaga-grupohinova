@@ -24,7 +24,7 @@ public class VeiculosConsumers {
             LOGGER.info("Salvando veiculos");
              services.salvar(veiculos);
         } catch (Exception e) {
-            LOGGER.info("Erro ao salvar veiculo" + e.getMessage());
+            LOGGER.info("Erro ao salvar veiculo\n" + e.getMessage());
         }
     }
 
