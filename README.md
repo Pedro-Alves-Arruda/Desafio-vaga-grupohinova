@@ -24,6 +24,12 @@ Rotas controller Usuarios
 GET - localhost:8080/usuarios
     Retorna um List<Usuarios>
 
+GET - http://localhost:8080/usuarios/dataInicial/dataFinal
+    Retorna um List<Usuarios> nesse intervalo de tempo
+
+    exemplo de data valida:
+    http://localhost:8080/usuarios/2025-03-26T14:30:00/2025-03-26T14:30:00
+
 POST - localhost:8080/usuarios
     Parametros: Um Json de Usuarios ex:
 
