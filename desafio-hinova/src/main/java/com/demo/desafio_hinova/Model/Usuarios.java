@@ -6,8 +6,11 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import com.demo.desafio_hinova.Model.Veiculos;
+
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -28,9 +31,28 @@ public class Usuarios {
     private String complement;
     private Boolean status;
 
+    @OneToMany(mappedBy = "usuario")
+    private List<Veiculos> veiculos;
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    public Usuarios(String name, String phone, String email, String cpf, String zipCode, String address, String number, String complement, Boolean status) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.cpf = cpf;
+        this.zipCode = zipCode;
+        this.address = address;
+        this.number = number;
+        this.complement = complement;
+        this.status = status;
+    }
+
+    public Usuarios() {
+    }
+
 
     public Long getId() {
         return id;

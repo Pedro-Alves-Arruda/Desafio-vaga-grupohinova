@@ -77,7 +77,17 @@ GET - localhost:8080/veiculos
 POST - localhost:8080/veiculos
     Parametros: Um Json de veiculos ex:
 
-    
+        {
+            "plate": "OUI-5035",
+            "advertisedPrice": 100000,
+            "brandId": 59,
+            "modelId": 5940,
+            "fipePrice": "R$ 95.999,00",
+            "ano": "2014-3",
+            "usuario": {
+                "id": 4
+            }
+        }
 
     name, phone, email, cpf são obrigatorios;
     formato do cpd deve ser apenas numeros.
@@ -91,4 +101,16 @@ PUT - localhost:8080/veiculos/{id}
     parametros: 
         id do usuario a ser atualizado
         Json com os novos valores, ex:
+
+        {
+            "plate": "OUI-5035",
+            "advertisedPrice": 100000,
+            "brandId": 59,
+            "modelId": 5940,
+            "fipePrice": "R$ 95.999,00",
+            "ano": "2014-3",
+            "usuario": {
+                "id": 4
+            }
+        }
             

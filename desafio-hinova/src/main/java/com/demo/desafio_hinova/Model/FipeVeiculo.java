@@ -2,7 +2,9 @@ package com.demo.desafio_hinova.Model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class FipeVeiculo
+import java.io.Serializable;
+
+public class FipeVeiculo implements Serializable
 {
     @JsonProperty("TipoVeiculo")
     private int tipoVeiculo;

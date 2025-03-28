@@ -3,7 +3,7 @@ package com.demo.desafio_hinova.Model;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
+import com.demo.desafio_hinova.Model.Usuarios;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,11 +19,22 @@ public class Veiculos {
     private Integer modelId;
     private String fipePrice;
     private String ano;
-    private Integer idUsuario;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuarios usuario;
+
+    public Usuarios getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuarios usuario) {
+        this.usuario = usuario;
+    }
 
     public Long getId() {
         return id;
@@ -90,11 +101,4 @@ public class Veiculos {
         this.fipePrice = fipePrice;
     }
 
-    public Integer getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
-    }
 }
